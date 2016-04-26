@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Faonni
+ *  
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade module to newer
+ * versions in the future.
+ * 
+ * @package     Faonni_CmsPageMenu
+ * @copyright   Copyright (c) 2015 Karliuka Vitalii(karliuka.vitalii@gmail.com) 
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+	<modules>
+		<Faonni_CmsPageMenu>
+			<version>1.1.0</version>
+		</Faonni_CmsPageMenu>
+	</modules>
+	<global>
+		<blocks>
+            <faonni_cmspagemenu>
+                <class>Faonni_CmsPageMenu_Block</class>
+            </faonni_cmspagemenu>
+        </blocks>	
+		<helpers>
+			<faonni_cmspagemenu>
+				<class>Faonni_CmsPageMenu_Helper</class>
+			</faonni_cmspagemenu>
+		</helpers>
+		<models>
+            <faonni_cmspagemenu>
+                <class>Faonni_CmsPageMenu_Model</class>
+            </faonni_cmspagemenu>		
+		</models>
+		<resources>
+			<faonni_cmspagemenu_setup>
+				<setup>
+					<module>Faonni_CmsPageMenu</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</faonni_cmspagemenu_setup>
+			<faonni_cmspagemenu_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</faonni_cmspagemenu_write>
+			<faonni_cmspagemenu_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</faonni_cmspagemenu_read>
+		</resources> 		
+	</global>
+    <frontend>
+		<events>
+            <cms_page_render>
+				<observers>
+					<faonni_cmspagemenu>
+						<class>faonni_cmspagemenu/observer</class>
+						<method>render</method>
+					</faonni_cmspagemenu>					
+				</observers>
+            </cms_page_render>			
+			<page_block_html_topmenu_gethtml_before>
+				<observers>
+					<faonni_cmspagemenu>
+						<type>singleton</type>
+						<class>faonni_cmspagemenu/observer</class>
+						<method>addToTopMenu</method>
+					</faonni_cmspagemenu>
+				</observers>
+			</page_block_html_topmenu_gethtml_before>
+			<core_block_abstract_prepare_layout_after>
+				<observers>
+					<faonni_cmspagemenu>
+						<type>singleton</type>
+						<class>faonni_cmspagemenu/observer</class>
+						<method>addToLinks</method>
+					</faonni_cmspagemenu>
+				</observers>
+			</core_block_abstract_prepare_layout_after>				
+		</events>	
+    </frontend>
+	<adminhtml>
+		<layout>
+            <updates>
+                <faonni_cmspagemenu>
+                    <file>faonni/cmspagemenu.xml</file>
+                </faonni_cmspagemenu>
+            </updates>
+        </layout>	
+		<events>
+			<cms_page_prepare_save>
+				<observers>
+					<faonni_cmspagemenu>
+						<class>faonni_cmspagemenu/observer</class>
+						<method>save</method>
+					</faonni_cmspagemenu>
+				</observers>
+			</cms_page_prepare_save>
+		</events>
+	</adminhtml>	
+</config> 
